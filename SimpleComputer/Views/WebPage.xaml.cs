@@ -36,6 +36,7 @@ namespace SimpleComputer.Views
 			if (!(DataContext is WebPageViewModel vm)) return;
 
 			vm.SearchAction = NavigateToWebsite;
+			vm.GoBackAction = GoBack;
 			vm.InitializeSearch = InitializeSearch;
 		}
 
@@ -48,7 +49,21 @@ namespace SimpleComputer.Views
 
 		public void NavigateToWebsite(Uri site)
 		{
-			MainWebView.Navigate(site);
+			try
+			{
+				MainWebView.Navigate(site);
+			}
+			catch (Exception)
+			{
+			}
+		}
+
+		public void GoBack()
+		{
+			if (MainWebView.CanGoBack)
+			{
+				MainWebView.GoBack();
+			}
 		}
 
 		private void SearchBox_KeyDown(object sender, KeyRoutedEventArgs e)

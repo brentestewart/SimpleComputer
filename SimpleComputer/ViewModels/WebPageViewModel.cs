@@ -1,7 +1,7 @@
 ﻿using Prism.Commands;
+using Prism.Windows.Navigation;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +9,6 @@ using System.Windows.Input;
 
 namespace SimpleComputer.ViewModels
 {
-	public class BaseViewModel : INotifyPropertyChanged
-	{
-		public event PropertyChangedEventHandler PropertyChanged;
-	}
-
 	public class WebPageViewModel : BaseViewModel
     {
 		public bool ShowWeb { get; set; }
@@ -21,14 +16,31 @@ namespace SimpleComputer.ViewModels
 		public string SearchText { get; set; }
 		public ICommand ShowSearchCommand { get; set; }
 		public ICommand Item1Command { get; set; }
+		public ICommand FeedCommand { get; set; }
+		public ICommand GoBackCommand { get; set; }
 		public Action<Uri> SearchAction { get; set; }
+		public Action GoBackAction { get; set; }
 		public Action InitializeSearch { get; set; }
+		public INavigationService NavigationService { get; }
 
-		public WebPageViewModel()
+		public WebPageViewModel(INavigationService navigationService)
 		{
-			SearchCommand = new DelegateCommand(Search);
+			SearchCommand = new DelegateCommand<string>(Search);
 			ShowSearchCommand = new DelegateCommand(ShowSearch);
 			Item1Command = new DelegateCommand(ShowCraigsList);
+			FeedCommand = new DelegateCommand(ShowFeed);
+			GoBackCommand = new DelegateCommand(GoBack);
+			NavigationService = navigationService;
+		}
+
+		private void GoBack()
+		{
+			GoBackAction?.Invoke();
+		}
+
+		private void ShowFeed()
+		{
+			NavigationService.Navigate("Feed", null);
 		}
 
 		private void ShowCraigsList()
@@ -50,16 +62,28 @@ namespace SimpleComputer.ViewModels
 			ShowWeb = false;
 		}
 
-		private void Search()
+		private void Search(string searchType)
 		{
-			var uri = GenerateSearhUri(SearchText);
+			Uri uri;
+			switch (searchType)
+			{
+				case "CRAIGSLIST":
+					uri = GenerateSearhUri(SearchText, @"https://kansascity.craigslist.org/search/sss?query={0}&sort=rel");
+					break;
+				case "LUCKY":
+					uri = GenerateSearhUri(SearchText, @"https://google.com/search?btnI=3564&q={0}");
+					break;
+				default:
+					uri = GenerateSearhUri(SearchText, @"https://google.com/search?q={0}");
+					break;
+			}
 			GotoPage(uri);
 		}
 
-		private Uri GenerateSearhUri(string searchTerms)
+		private Uri GenerateSearhUri(string searchTerms, string searchPath)
 		{
 			var uriEncodedTerms = Uri.EscapeUriString(searchTerms);
-			return new Uri($@"https://google.com/search?q={uriEncodedTerms}");
+			return new Uri(string.Format(searchPath, searchTerms));
 		}
 	}
 }

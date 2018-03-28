@@ -11,6 +11,10 @@
 	mc:Ignorable="d">
 	<Page.Resources>
 		<converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+		<Style TargetType="Button">
+			<Setter Property="Width" Value="200"/>
+			<Setter Property="Margin" Value="5,0"/>
+		</Style>
 	</Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -22,12 +26,13 @@
 		<StackPanel Grid.Row="0" Orientation="Horizontal">
 			<Button Content="Search" Command="{Binding ShowSearchCommand}"/>
 			<Button Content="Craig's List" Command="{Binding Item1Command}"/>
-			<Button Content="Third Option" Command="{Binding Item2Command}"/>
+			<Button Content="Show Feed" Command="{Binding FeedCommand}"/>
+			<Button Content="Go Back" Command="{Binding GoBackCommand}"/>
 		</StackPanel>
 
 		<WebView x:Name="MainWebView" Grid.Row="1" Source="http://google.com" Visibility="{Binding ShowWeb, Converter={StaticResource BoolToVisConverter}}"/>
 
-		<Grid Grid.Row="1" Margin="50,0" Visibility="{Binding ShowWeb, Converter={StaticResource BoolToVisConverter}, ConverterParameter=inverse}">
+		<Grid Grid.Row="1" Margin="0,0" Visibility="{Binding ShowWeb, Converter={StaticResource BoolToVisConverter}, ConverterParameter=inverse}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"/>
 				<RowDefinition Height="auto"/>
@@ -42,7 +47,11 @@
 					 Width="600" 
 					 HorizontalAlignment="Center" 
 					 Margin="0,0,0,20"/>
-			<Button Grid.Row="2"  Content="Search" Command="{Binding SearchCommand}" HorizontalAlignment="Center"/>
+			<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button Content="Go to..." Command="{Binding SearchCommand}" CommandParameter="LUCKY" />
+				<Button Content="Search Google" Command="{Binding SearchCommand}" CommandParameter="GOOGLE" />
+				<Button Content="Search Craig's List" Command="{Binding SearchCommand}" CommandParameter="CRAIGSLIST" />
+			</StackPanel>
 		</Grid>
 	</Grid>
 </Page>

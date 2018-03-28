@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="SimpleComputer.Views.FeedPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SimpleComputer.Views"
+	xmlns:prism="using:Prism.Windows.Mvvm"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+	<Page.Resources>
+		<Style TargetType="Button">
+			<Setter Property="Width" Value="200"/>
+		</Style>
+	</Page.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="auto"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<StackPanel Grid.Column="0"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+			<TextBlock Text="Feed" FontSize="36"/>
+			<Button Content="Show Web" Command="{Binding WebCommand}"/>
+			<Button Content="Upload Image" Command="{Binding UploadCommand}"/>
+			<Button Content="Refresh Pict List" Command="{Binding RefreshCommand}"/>
+		</StackPanel>
+		<ScrollViewer Grid.Column="1" HorizontalScrollMode="Disabled" VerticalScrollMode="Auto">
+			<ItemsControl ItemsSource="{Binding Picts}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel>
+							<Image Source="{Binding Uri}"/>
+							<TextBlock Text="{Binding Name}"/>
+						</StackPanel>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</Grid>
+</Page>
