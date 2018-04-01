@@ -7,7 +7,11 @@ using Windows.Storage.Pickers;
 using System.IO;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Collections.ObjectModel;
+using System.Linq;
+using Windows.UI.Xaml.Controls;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
+using SimpleComputer.Models;
 
 namespace SimpleComputer.ViewModels
 {
@@ -15,93 +19,56 @@ namespace SimpleComputer.ViewModels
 	{
 		public INavigationService NavigationService { get; }
 		public ICommand WebCommand { get; set; }
-		public ICommand UploadCommand { get; set; }
 		public ICommand RefreshCommand { get; set; }
-		public ObservableCollection<CloudBlockBlob> Picts { get; set; } = new ObservableCollection<CloudBlockBlob>();
+		public ICommand PreviousCommand { get; set; }
+		public ICommand NextCommand { get; set; }
+		public ObservableCollection<PostEntity> Posts { get; set; } = new ObservableCollection<PostEntity>();
+		public PostEntity CurrentPost { get; set; }
 
 		public FeedPageViewModel(INavigationService navigationService)
 		{
 			NavigationService = navigationService;
 			WebCommand = new DelegateCommand(ShowWeb);
-			UploadCommand = new DelegateCommand(Upload);
 			RefreshCommand = new DelegateCommand(RefreshList);
+			PreviousCommand = new DelegateCommand(PreviousPost);
+			NextCommand = new DelegateCommand(NextPost);
+			RefreshList();
 		}
 
-		private async void Upload()
+		private void NextPost()
 		{
-			FileOpenPicker openPicker = new FileOpenPicker();
-			openPicker.ViewMode = PickerViewMode.Thumbnail;
-			openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-			openPicker.FileTypeFilter.Add(".jpg");
-			openPicker.FileTypeFilter.Add(".png");
-			openPicker.FileTypeFilter.Add(".jpeg");
-			var file = await openPicker.PickSingleFileAsync();
-
-			if (file != null)
+			var index = Posts.IndexOf(CurrentPost);
+			if (index < Posts.Count-1)
 			{
-				using (var fileStream = await file.OpenSequentialReadAsync())
-				{
-					await App.AzureContainer.CreateIfNotExistsAsync();
-					var blob = App.AzureContainer.GetBlockBlobReference(file.Name);
-					await blob.DeleteIfExistsAsync();
-					await blob.UploadFromStreamAsync(fileStream.AsStreamForRead());
-				}
+				CurrentPost = Posts[++index];
 			}
 		}
 
-		private async void CreatePost()
+		private void PreviousPost()
 		{
-			await App.AzureTable.CreateIfNotExistsAsync();
-			App.AzureTable.get
+			var index = Posts.IndexOf(CurrentPost);
+			if (index > 0)
+			{
+				CurrentPost = Posts[--index];
+			}
 
 		}
-
-		//private async void Download()
-		//{
-		//	var blob = App.AzureContainer.GetBlockBlobReference(item.Name);
-		//	StorageFile file;
-		//	try
-		//	{
-		//		Windows.Storage.StorageFolder temporaryFolder = ApplicationData.Current.TemporaryFolder;
-		//		file = await temporaryFolder.CreateFileAsync(item.Name,
-		//		   CreationCollisionOption.ReplaceExisting);
-
-		//		ProcessBegin();
-
-		//		var downloadTask = blob.DownloadToFileAsync(file);
-
-		//		await downloadTask;
-
-		//		downloadTask.Completed = (IAsyncAction asyncInfo, AsyncStatus asyncStatus) =>
-		//		{
-		//			ProcessEnd();
-		//		};
-
-		//		// Make sure it's an image file. 
-		//		imgBlobItem.Source = new BitmapImage(new Uri(file.Path));
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		statusText.Text = (ex.Message + "\n");
-		//	}
-		//}
 
 		private async void RefreshList()
 		{
 			try
 			{
-				Picts.Clear();
-				await App.AzureContainer.CreateIfNotExistsAsync();
-				BlobContinuationToken token = null;
-				var blobsSegmented = await App.AzureContainer.ListBlobsSegmentedAsync(token);
-				var picts = blobsSegmented.Results;
-				foreach (var pict in picts)
+				Posts.Clear();
+				var table = App.TableClient.GetTableReference("Post");
+				await table.CreateIfNotExistsAsync();
+				var query = new TableQuery<PostEntity>();
+				var allPosts = await table.ExecuteQuerySegmentedAsync(query, null);
+				foreach (var post in allPosts.OrderByDescending(p => p.PostDate))
 				{
-					if (pict is CloudBlockBlob blob)
-					{						
-						Picts.Add(blob);
-					}
+					Posts.Add(post);
 				}
+
+				CurrentPost = Posts.First();
 			}
 			catch (Exception ex)
 			{				
@@ -111,16 +78,6 @@ namespace SimpleComputer.ViewModels
 		private void ShowWeb()
 		{
 			NavigationService.Navigate("Web", null);
-		}
-	}
-
-	public class PostEntity : TableEntity
-	{
-		public string Text { get; set; }
-		public PostEntity()
-		{
-			PartitionKey = DateTime.Now.Year.ToString();
-			RowKey = DateTime.Now.ToString("MMddhhmm");
 		}
 	}
 }

@@ -27,6 +27,8 @@
 			<Button Content="Search" Command="{Binding ShowSearchCommand}"/>
 			<Button Content="Craig's List" Command="{Binding Item1Command}"/>
 			<Button Content="Show Feed" Command="{Binding FeedCommand}"/>
+			<Button Content="Create Post" Command="{Binding CreatePostCommand}"/>
+			<Button Content="Calendar" Command="{Binding CalendarCommand}"/>
 			<Button Content="Go Back" Command="{Binding GoBackCommand}"/>
 		</StackPanel>
 
