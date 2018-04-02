@@ -15,26 +15,29 @@
 			<Setter Property="FontWeight" Value="Bold"/>
 		</Style>
 	</Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="10">
 		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"/>
 			<RowDefinition Height="auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="auto"/>
 		</Grid.ColumnDefinitions>
-		<TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding DayOfTheWeek}" Style="{StaticResource HeaderText}" />
-		<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Date}" Style="{StaticResource HeaderText}" />
+		<TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding DayOfTheWeek}" Style="{StaticResource HeaderTextBlockStyle}" />
+		<TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Date}" Style="{StaticResource SubheaderTextBlockStyle}" />
 
-		<controls:CalendarControl Grid.Row="1" Grid.Column="0" Days="{Binding Days}"/>
-
-		<ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Appointments}">
+		<ItemsControl Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Appointments}">
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
 					<TextBlock Text="{Binding Title}"/>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
 		</ItemsControl>
-    </Grid>
+
+		<controls:CalendarControl Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" 
+								  Days="{Binding Days}" Width="600" Height="650" 
+								  HorizontalAlignment="Right" VerticalAlignment="Top"/>
+	</Grid>
 </Page>

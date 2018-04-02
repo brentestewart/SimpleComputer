@@ -6,71 +6,88 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400" x:Name="CalendarControlPage">
+    d:DesignHeight="600"
+    d:DesignWidth="600"
+	x:Name="CalendarControlPage">
 
 	<UserControl.Resources>
+		<Style TargetType="TextBlock" x:Key="DayLabel">
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</Style>
 	</UserControl.Resources>
 
-    <Grid Background="Blue">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="*"/>
-		</Grid.ColumnDefinitions>
-		<local:CalendarDayControl Text="{Binding Days[0].Text, ElementName=CalendarControlPage}" Grid.Row="0" Grid.Column="0"/>
-		<local:CalendarDayControl Text="{Binding Days[1].Text, ElementName=CalendarControlPage}" Grid.Row="0" Grid.Column="1"/>
-		<local:CalendarDayControl Text="{Binding Days[2].Text, ElementName=CalendarControlPage}" Grid.Row="0" Grid.Column="2"/>
-	    <local:CalendarDayControl Text="{Binding Days[3].Text, ElementName=CalendarControlPage}" Grid.Row="0" Grid.Column="3"/>
-	    <local:CalendarDayControl Text="{Binding Days[4].Text, ElementName=CalendarControlPage}" Grid.Row="0" Grid.Column="4"/>
-	    <local:CalendarDayControl Text="{Binding Days[5].Text, ElementName=CalendarControlPage}" Grid.Row="0" Grid.Column="5"/>
-		<local:CalendarDayControl Text="{Binding Days[6].Text, ElementName=CalendarControlPage}" Grid.Row="0" Grid.Column="6"/>
-	    <local:CalendarDayControl Text="{Binding Days[7].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="0"/>
-	    <local:CalendarDayControl Text="{Binding Days[8].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="1"/>
-	    <local:CalendarDayControl Text="{Binding Days[9].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="2"/>
-		<local:CalendarDayControl Text="{Binding Days[10].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="3"/>
-	    <local:CalendarDayControl Text="{Binding Days[11].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="4"/>
-	    <local:CalendarDayControl Text="{Binding Days[12].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="5"/>
-	    <local:CalendarDayControl Text="{Binding Days[13].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="6"/>
-	    <local:CalendarDayControl Text="{Binding Days[14].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="0"/>
-	    <local:CalendarDayControl Text="{Binding Days[15].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="1"/>
-	    <local:CalendarDayControl Text="{Binding Days[16].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="2"/>
-	    <local:CalendarDayControl Text="{Binding Days[17].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="3"/>
-	    <local:CalendarDayControl Text="{Binding Days[18].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="4"/>
-	    <local:CalendarDayControl Text="{Binding Days[19].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="5"/>
-		<local:CalendarDayControl Text="{Binding Days[20].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="6"/>
-	    <local:CalendarDayControl Text="{Binding Days[21].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="0"/>
-	    <local:CalendarDayControl Text="{Binding Days[22].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="1"/>
-	    <local:CalendarDayControl Text="{Binding Days[23].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="2"/>
-	    <local:CalendarDayControl Text="{Binding Days[24].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="3"/>
-	    <local:CalendarDayControl Text="{Binding Days[25].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="4"/>
-	    <local:CalendarDayControl Text="{Binding Days[26].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="5"/>
-	    <local:CalendarDayControl Text="{Binding Days[27].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="6"/>
-	    <local:CalendarDayControl Text="{Binding Days[28].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="0"/>
-	    <local:CalendarDayControl Text="{Binding Days[29].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="1"/>
-		<local:CalendarDayControl Text="{Binding Days[30].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="2"/>
-	    <local:CalendarDayControl Text="{Binding Days[31].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="3"/>
-	    <local:CalendarDayControl Text="{Binding Days[32].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="4"/>
-	    <local:CalendarDayControl Text="{Binding Days[33].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="5"/>
-		<local:CalendarDayControl Text="{Binding Days[34].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="6"/>
-		<local:CalendarDayControl Text="{Binding Days[35].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="0"/>
-	    <local:CalendarDayControl Text="{Binding Days[36].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="1"/>
-	    <local:CalendarDayControl Text="{Binding Days[37].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="2"/>
-	    <local:CalendarDayControl Text="{Binding Days[38].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="3"/>
-	    <local:CalendarDayControl Text="{Binding Days[39].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="4"/>
-	    <local:CalendarDayControl Text="{Binding Days[40].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="5"/>
-		<local:CalendarDayControl Text="{Binding Days[41].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="6"/>
-	</Grid>
+	<Border Background="Green" BorderBrush="Black" BorderThickness="1">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="25"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Text="Sun" Grid.Row="0" Grid.Column="0" Style="{StaticResource DayLabel}"/>
+			<TextBlock Text="Mon" Grid.Row="0" Grid.Column="1" Style="{StaticResource DayLabel}"/>
+			<TextBlock Text="Tue" Grid.Row="0" Grid.Column="2" Style="{StaticResource DayLabel}"/>
+			<TextBlock Text="Wed" Grid.Row="0" Grid.Column="3" Style="{StaticResource DayLabel}"/>
+			<TextBlock Text="Thu" Grid.Row="0" Grid.Column="4" Style="{StaticResource DayLabel}"/>
+			<TextBlock Text="Fri" Grid.Row="0" Grid.Column="5" Style="{StaticResource DayLabel}"/>
+			<TextBlock Text="Sat" Grid.Row="0" Grid.Column="6" Style="{StaticResource DayLabel}"/>
+
+			<local:CalendarDayControl IsToday="{Binding Days[0].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[0].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="0"/>
+			<local:CalendarDayControl IsToday="{Binding Days[1].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[1].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="1"/>
+			<local:CalendarDayControl IsToday="{Binding Days[2].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[2].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="2"/>
+			<local:CalendarDayControl IsToday="{Binding Days[3].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[3].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="3"/>
+			<local:CalendarDayControl IsToday="{Binding Days[4].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[4].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="4"/>
+			<local:CalendarDayControl IsToday="{Binding Days[5].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[5].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="5"/>
+			<local:CalendarDayControl IsToday="{Binding Days[6].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[6].Text, ElementName=CalendarControlPage}" Grid.Row="1" Grid.Column="6"/>
+			<local:CalendarDayControl IsToday="{Binding Days[7].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[7].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="0"/>
+			<local:CalendarDayControl IsToday="{Binding Days[8].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[8].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="1"/>
+			<local:CalendarDayControl IsToday="{Binding Days[9].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[9].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="2"/>
+			<local:CalendarDayControl IsToday="{Binding Days[10].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[10].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="3"/>
+			<local:CalendarDayControl IsToday="{Binding Days[11].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[11].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="4"/>
+			<local:CalendarDayControl IsToday="{Binding Days[12].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[12].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="5"/>
+			<local:CalendarDayControl IsToday="{Binding Days[13].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[13].Text, ElementName=CalendarControlPage}" Grid.Row="2" Grid.Column="6"/>
+			<local:CalendarDayControl IsToday="{Binding Days[14].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[14].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="0"/>
+			<local:CalendarDayControl IsToday="{Binding Days[15].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[15].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="1"/>
+			<local:CalendarDayControl IsToday="{Binding Days[16].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[16].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="2"/>
+			<local:CalendarDayControl IsToday="{Binding Days[17].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[17].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="3"/>
+			<local:CalendarDayControl IsToday="{Binding Days[18].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[18].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="4"/>
+			<local:CalendarDayControl IsToday="{Binding Days[19].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[19].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="5"/>
+			<local:CalendarDayControl IsToday="{Binding Days[20].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[20].Text, ElementName=CalendarControlPage}" Grid.Row="3" Grid.Column="6"/>
+			<local:CalendarDayControl IsToday="{Binding Days[21].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[21].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="0"/>
+			<local:CalendarDayControl IsToday="{Binding Days[22].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[22].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="1"/>
+			<local:CalendarDayControl IsToday="{Binding Days[23].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[23].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="2"/>
+			<local:CalendarDayControl IsToday="{Binding Days[24].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[24].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="3"/>
+			<local:CalendarDayControl IsToday="{Binding Days[25].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[25].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="4"/>
+			<local:CalendarDayControl IsToday="{Binding Days[26].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[26].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="5"/>
+			<local:CalendarDayControl IsToday="{Binding Days[27].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[27].Text, ElementName=CalendarControlPage}" Grid.Row="4" Grid.Column="6"/>
+			<local:CalendarDayControl IsToday="{Binding Days[28].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[28].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="0"/>
+			<local:CalendarDayControl IsToday="{Binding Days[29].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[29].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="1"/>
+			<local:CalendarDayControl IsToday="{Binding Days[30].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[30].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="2"/>
+			<local:CalendarDayControl IsToday="{Binding Days[31].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[31].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="3"/>
+			<local:CalendarDayControl IsToday="{Binding Days[32].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[32].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="4"/>
+			<local:CalendarDayControl IsToday="{Binding Days[33].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[33].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="5"/>
+			<local:CalendarDayControl IsToday="{Binding Days[34].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[34].Text, ElementName=CalendarControlPage}" Grid.Row="5" Grid.Column="6"/>
+			<local:CalendarDayControl IsToday="{Binding Days[35].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[35].Text, ElementName=CalendarControlPage}" Grid.Row="6" Grid.Column="0"/>
+			<local:CalendarDayControl IsToday="{Binding Days[36].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[36].Text, ElementName=CalendarControlPage}" Grid.Row="6" Grid.Column="1"/>
+			<local:CalendarDayControl IsToday="{Binding Days[37].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[37].Text, ElementName=CalendarControlPage}" Grid.Row="6" Grid.Column="2"/>
+			<local:CalendarDayControl IsToday="{Binding Days[38].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[38].Text, ElementName=CalendarControlPage}" Grid.Row="6" Grid.Column="3"/>
+			<local:CalendarDayControl IsToday="{Binding Days[39].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[39].Text, ElementName=CalendarControlPage}" Grid.Row="6" Grid.Column="4"/>
+			<local:CalendarDayControl IsToday="{Binding Days[40].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[40].Text, ElementName=CalendarControlPage}" Grid.Row="6" Grid.Column="5"/>
+			<local:CalendarDayControl IsToday="{Binding Days[41].IsToday, ElementName=CalendarControlPage}" Text="{Binding Days[41].Text, ElementName=CalendarControlPage}" Grid.Row="6" Grid.Column="6"/>
+		</Grid>
+	</Border>
 </UserControl>

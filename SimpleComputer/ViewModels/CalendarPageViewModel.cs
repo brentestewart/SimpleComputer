@@ -24,13 +24,24 @@ namespace SimpleComputer.ViewModels
 		{
 			var currentYear = DateTime.Now.Year;
 			var currentMonth = DateTime.Now.Month;
+			var currentDayOfMonth = DateTime.Now.Day;
 			var numOfStartPadDays = (int)new DateTime(currentYear, currentMonth, 1).DayOfWeek;
 			var daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
 			var numOfEndPadDays = 42 - numOfStartPadDays - daysInMonth;
 
 			for (int i = 0; i < numOfStartPadDays; i++)
 			{
-				Days.Add(new CalendarDay());
+				Days.Add(new CalendarDay() { Text = "" });
+			}
+
+			for (int i = 0; i < daysInMonth; i++)
+			{
+				Days.Add(new CalendarDay { Text = (i + 1).ToString(), Date = new DateTime(currentYear, currentMonth, i+1) });
+			}
+
+			for (int i = 0; i < numOfEndPadDays; i++)
+			{
+				Days.Add(new CalendarDay() { Text = "" });
 			}
 		}
 
@@ -40,7 +51,7 @@ namespace SimpleComputer.ViewModels
 			Appointments.Add(new Appointment()
 			{
 				Time = DateTime.Now.Date.AddHours(17),
-				Title = "Go to the Doctors with Karen"
+				Title = "Go shopping with Carolyn"
 			});
 		}
 	}

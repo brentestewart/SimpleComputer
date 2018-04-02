@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="Controls\CalendarDayControl.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\BoolToColorConverter.cs" />
     <Compile Include="Converters\DateTimeToStringConverter.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Shell.xaml.cs">

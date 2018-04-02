@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using SimpleComputer.Models;
+using Windows.UI;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -38,15 +39,6 @@ namespace SimpleComputer.Controls
 		public CalendarControl()
 		{
 			this.InitializeComponent();
-			this.DataContext = this;
-			Days = new List<CalendarDay>()
-			{
-				new CalendarDay() { Text = "1"},
-				new CalendarDay() { Text = "2"},
-				new CalendarDay() { Text = "3"},
-				new CalendarDay() { Text = "4"},
-				new CalendarDay() { Text = "5"},
-			};
 		}
 
 	}

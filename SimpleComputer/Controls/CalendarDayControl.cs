@@ -20,12 +20,6 @@ namespace SimpleComputer.Controls
 {
 	public sealed partial class CalendarDayControl : UserControl
 	{
-		public CalendarDayControl()
-		{
-			this.InitializeComponent();
-			this.DataContext = this;
-		}
-
 		public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
 			"Text",
 			typeof(String),
@@ -37,6 +31,25 @@ namespace SimpleComputer.Controls
 		{
 			get => (String)GetValue(TextProperty);
 			set => SetValue(TextProperty, value);
+		}
+
+		public static readonly DependencyProperty IsTodayProperty = DependencyProperty.Register(
+			"IsToday",
+			typeof(bool),
+			typeof(CalendarDayControl),
+			new PropertyMetadata(false)
+		);
+
+		public bool IsToday
+		{
+			get => (bool)GetValue(IsTodayProperty);
+			set => SetValue(IsTodayProperty, value);
+		}
+
+		public CalendarDayControl()
+		{
+			this.InitializeComponent();
+			this.DataContext = this;
 		}
 	}
 }

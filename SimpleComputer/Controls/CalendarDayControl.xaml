@@ -5,13 +5,18 @@
     xmlns:local="using:SimpleComputer.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+	xmlns:converters="using:SimpleComputer.Converters"
+	mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
+	<UserControl.Resources>
+		<converters:BoolToColorConverter x:Key="BoolToColorConverter" TrueColor="Red" FalseColor="Black"/>
+	</UserControl.Resources>
 	<Grid>
-		<Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="0" BorderBrush="Black" BorderThickness=".35">
-			<ContentControl Content="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="0" BorderBrush="Black" BorderThickness=".35">
+			<ContentControl Content="{Binding Text}" FontWeight="Bold" FontSize="32"
+							Foreground="{Binding IsToday, Converter={StaticResource BoolToColorConverter}}" 
+							HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		</Border>
 	</Grid>
 </UserControl>

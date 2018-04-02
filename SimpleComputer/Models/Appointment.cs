@@ -10,6 +10,8 @@ namespace SimpleComputer.Models
 
 	public class CalendarDay
 	{
+		public DateTime Date { get; set; }
+		public bool IsToday => DateTime.Now.Date == Date.Date;
 		public string Text { get; set; }
 	}
 }
