@@ -8,7 +8,7 @@
     xmlns:converters="using:SimpleComputer.Converters"
 	xmlns:prism="using:Prism.Windows.Mvvm"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    mc:Ignorable="d" Background="Black" x:Name="Page">
+    mc:Ignorable="d" x:Name="Page">
 	<Page.Resources>
 		<converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
 		<Style TargetType="Button">
@@ -20,11 +20,11 @@
 			<ColumnDefinition Width="auto"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
-		<StackPanel Grid.Column="0"  Background="Black">
-			<TextBlock Text="Feed" FontSize="36" Foreground="White"/>
+		<StackPanel Grid.Column="0">
+			<TextBlock Text="Feed" FontSize="36"/>
 			<Button Content="Show Web" Command="{Binding WebCommand}" Background="Gray"/>
-			<Button Content="Upload Image" Command="{Binding UploadCommand}" Background="Gray"/>
-			<Button Content="Refresh Pict List" Command="{Binding RefreshCommand}" Background="Gray"/>
+			<Button Content="Upload Image" Command="{Binding UploadCommand}"/>
+			<Button Content="Refresh Pict List" Command="{Binding RefreshCommand}"/>
 		</StackPanel>
 
 		<Grid Grid.Column="1">
@@ -42,41 +42,15 @@
 					<TextBlock Grid.Row="0" Text="{Binding CurrentPost.Title}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 					<TextBlock Grid.Row="0" Text="{Binding CurrentPost.PostDate, Converter={StaticResource DateTimeToStringConverter}}" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,4,5,0"/>
 					<Border Grid.Row="1" CornerRadius="10" Margin="10">
-						<Image Source="{Binding CurrentPost.ImagePath}" />
-						<!--<ScrollViewer ZoomMode="Enabled" MinZoomFactor="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-						<Image Source="{Binding CurrentPost.ImagePath}" MaxWidth="{Binding ActualWidth, ElementName=Page}" MaxHeight="{Binding ActualHeight, ElementName=Page}"/>
-					</ScrollViewer>-->
+						<Image Source="{Binding CurrentPost.ImageUrl}" />
 					</Border>
 					<TextBlock Grid.Row="2" Text="{Binding CurrentPost.Content}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
 				</Grid>
 			</Border>
 			<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-				<Button Content="&lt;-- Previous" FontSize="48" FontWeight="Bold" Command="{Binding PreviousCommand}" Background="Gray" Width="350" Margin="0,10,20,10"/>
-				<Button Content="Next --&gt;" FontSize="48" FontWeight="Bold" Command="{Binding NextCommand}" Background="Gray" Width="350"/>
+				<Button Content="&lt;-- Previous" FontSize="24" FontWeight="Bold" Command="{Binding PreviousCommand}" Width="250" Margin="0,10,20,10"/>
+				<Button Content="Next --&gt;" FontSize="24" FontWeight="Bold" Command="{Binding NextCommand}" Width="250"/>
 			</StackPanel>
 		</Grid>
-		<!--<ScrollViewer Grid.Column="1" HorizontalScrollMode="Disabled" VerticalScrollMode="Auto">
-			<ItemsControl ItemsSource="{Binding Posts}">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<Border CornerRadius="5" Background="Gray" Margin="20,10" Padding="20">
-							<Grid>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="Auto"/>
-								</Grid.RowDefinitions>
-								<TextBlock Grid.Row="0" Text="{Binding Title}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-								<TextBlock Grid.Row="0" Text="{Binding PostDate, Converter={StaticResource DateTimeToStringConverter}}" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,4,5,0"/>
-								<Border Grid.Row="1" CornerRadius="10" Margin="10">
-									<Image Source="{Binding ImagePath}" HorizontalAlignment="Center"/>
-								</Border>
-								<TextBlock Grid.Row="2" Text="{Binding Content}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-							</Grid>
-						</Border>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-		</ScrollViewer>-->
 	</Grid>
 </Page>

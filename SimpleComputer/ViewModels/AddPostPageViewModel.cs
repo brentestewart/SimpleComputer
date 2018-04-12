@@ -51,7 +51,7 @@ namespace SimpleComputer.ViewModels
 		{
 			var post = new PostEntity(Title, Content)
 			{
-				ImagePath = ImagePath
+				ImageUrl = ImagePath
 			};
 
 			var table = App.TableClient.GetTableReference("Post");
