@@ -102,7 +102,9 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToColorConverter.cs" />
     <Compile Include="Converters\DateTimeToStringConverter.cs" />
-    <Compile Include="Gpio\ButtonMonitor.cs" />
+    <Compile Include="Gpio\GpioManager.cs" />
+    <Compile Include="Gpio\Led.cs" />
+    <Compile Include="Gpio\LightedButton.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>

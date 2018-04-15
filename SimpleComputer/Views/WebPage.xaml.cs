@@ -28,6 +28,7 @@ namespace SimpleComputer.Views
 		public WebPage()
 		{
 			this.InitializeComponent();
+			this.NavigationCacheMode = NavigationCacheMode.Required;
 			this.DataContextChanged += UpdateViewModel;
 		}
 
@@ -38,6 +39,7 @@ namespace SimpleComputer.Views
 			vm.SearchAction = NavigateToWebsite;
 			vm.GoBackAction = GoBack;
 			vm.InitializeSearch = InitializeSearch;
+			vm.SetupGpio();
 		}
 
 		private void InitializeSearch()

@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using SimpleComputer.ViewModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +26,14 @@ namespace SimpleComputer.Views
 		public FeedPage()
 		{
 			this.InitializeComponent();
+			this.NavigationCacheMode = NavigationCacheMode.Required;
+			this.DataContextChanged += UpdateViewModel;
+		}
+
+		private void UpdateViewModel(FrameworkElement sender, DataContextChangedEventArgs args)
+		{
+			if (!(DataContext is FeedPageViewModel vm)) return;
+			vm.SetupGpio();
 		}
 	}
 }

@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Controls;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
+using SimpleComputer.Gpio;
 using SimpleComputer.Models;
 
 namespace SimpleComputer.ViewModels
@@ -42,6 +43,14 @@ namespace SimpleComputer.ViewModels
 			//RefreshList();
 			//StartMonitoring();
 			ScanForPosts();
+		}
+
+		public override void SetupGpio()
+		{
+			GpioManager.WhiteButton.TurnLedOff();
+			GpioManager.YellowButton.TurnLedOn();
+			GpioManager.GreenButton.TurnLedOff();
+			GpioManager.RedButton.TurnLedOff();
 		}
 
 		private async void ScanForPosts()

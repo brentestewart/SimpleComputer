@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using SimpleComputer.Gpio;
 using SimpleComputer.Models;
 
 namespace SimpleComputer.ViewModels
@@ -18,6 +19,15 @@ namespace SimpleComputer.ViewModels
 		{
 			RefreshAppointments();
 			BuildDays();
+			SetupGpio();
+		}
+
+		private void SetupGpio()
+		{
+			GpioManager.WhiteButton.TurnLedOff();
+			GpioManager.YellowButton.TurnLedOff();
+			GpioManager.GreenButton.TurnLedOn();
+			GpioManager.RedButton.TurnLedOff();
 		}
 
 		private void BuildDays()
@@ -51,7 +61,7 @@ namespace SimpleComputer.ViewModels
 			Appointments.Add(new Appointment()
 			{
 				Time = DateTime.Now.Date.AddHours(17),
-				Title = "Go shopping with Carolyn"
+				Title = "Go shopping with Carolyn @ 10am"
 			});
 		}
 	}

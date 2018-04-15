@@ -41,13 +41,11 @@ namespace SimpleComputer
 		private static readonly string tableConnectionString = @"DefaultEndpointsProtocol=https;AccountName=simplecomputer;AccountKey=XWz6oYC8qIhG+bEln/bjBEVjI1HzmsianUEmlexgRccYatqn2jEcU/RmkU4POir8LxVqlBxgydn3uHb1GQFBCA==;TableEndpoint=https://simplecomputer.table.core.windows.net/;";
 		public static readonly CloudBlobContainer AzureContainer = new CloudBlobContainer(new Uri("http://simplecomputer.blob.core.windows.net/imagescontainer/"), cred);
 		public static CloudTableClient TableClient { get; set; }
-	    //public static readonly CloudTable AzureTable = Azure.CreateTableService("simplecomputer"), cred);
-		//public static readonly CloudTable AzureTable = Azure.CreateTableService CloudTable(new Uri("https://simplecomputer.table.core.windows.net/Post"), cred);
-		
+	    public static Uri LastVisitedWebsite { get; set; } = null;
 		/// <summary>
 		/// /// Initializes the singleton application object.  This is the first line of authored code
 		/// /// executed, and as such is the logical equivalent of main() or WinMain().
-																																														/// </summary>
+		/// </summary>
 		public App()
 		{
 			ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
@@ -55,10 +53,31 @@ namespace SimpleComputer
 			var account = CloudStorageAccount.Parse(tableConnectionString);
 			TableClient = account.CreateCloudTableClient();
 			//this.Suspending += OnSuspending;
-			StartMonitoring();
+			SetupGpio();
 		}
 
-		protected override UIElement CreateShell(Frame rootFrame)
+	    private void SetupGpio()
+	    {
+			GpioManager.WhiteButton.SetPressedAction(async () =>
+			{
+				await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+					(() => { NavigationService.Navigate("Web", null); }));
+			});
+
+			GpioManager.YellowButton.SetPressedAction(async () =>
+			{
+				await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+					(() => { NavigationService.Navigate("Feed", null); }));
+			});
+
+		    GpioManager.GreenButton.SetPressedAction(async () =>
+			{
+				await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+					(() => { NavigationService.Navigate("Calendar", null); }));
+			});
+		}
+
+	    protected override UIElement CreateShell(Frame rootFrame)
 		{
 			var shell = Container.Resolve<Shell>();
 			shell.SetContentFrame(rootFrame);
@@ -86,165 +105,5 @@ namespace SimpleComputer
 			NavigationService.Navigate("Web", null);
 			return Task.CompletedTask;	
 		}
-
-	    public void StartMonitoring()
-	    {
-		    // Get the default GPIO controller on the system
-		    GpioController gpio = GpioController.GetDefault();
-		    if (gpio == null) return; // GPIO not available on this system
-
-		 //   WhiteButton = gpio.OpenPin(WhiteButtonPinNumber);
-		 //   WhiteButton.SetDriveMode(WhiteButton.IsDriveModeSupported(GpioPinDriveMode.InputPullUp)
-			//    ? GpioPinDriveMode.InputPullUp
-			//    : GpioPinDriveMode.Input);
-		 //   WhiteButton.DebounceTimeout = TimeSpan.FromMilliseconds(50);
-		 //   WhiteButton.ValueChanged += (pin, args) =>
-		 //   {
-			//    if (args.Edge == GpioPinEdge.FallingEdge)
-			//    {
-			//	    ToggleRedLed();
-			//	    CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-			//		    (() => { NavigationService.Navigate("Web", null); }));
-			//    }
-		 //   };
-
-
-		 //   RedButton = gpio.OpenPin(RedButtonPinNumber);
-		 //   RedButton.SetDriveMode(RedButton.IsDriveModeSupported(GpioPinDriveMode.InputPullUp)
-			//    ? GpioPinDriveMode.InputPullUp
-			//    : GpioPinDriveMode.Input);
-		 //   RedButton.DebounceTimeout = TimeSpan.FromMilliseconds(50);
-		 //   RedButton.ValueChanged += (pin, args) =>
-		 //   {
-			//    if (args.Edge == GpioPinEdge.FallingEdge)
-			//    {
-			//	    ToggleRedLed();
-			//	    CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-			//		    (() => { NavigationService.Navigate("Web", null); }));
-			//    }
-		 //   };
-
-			//RedLed = gpio.OpenPin(RedLedPinNumber);
-			//RedLed.SetDriveMode(GpioPinDriveMode.Output);
-		 //   RedLed.Write(GpioPinValue.High);
-
-		 //   GreenLed = gpio.OpenPin(GreenLedPinNumber);
-		 //   GreenLed.SetDriveMode(GpioPinDriveMode.Output);
-			//GreenLed.Write(GpioPinValue.High);
-
-		    WhiteButtonLed = InitButtonLed(gpio, WhiteButtonLedPinNumber);
-		    YellowButtonLed = InitButtonLed(gpio, YellowButtonLedPinNumber);
-		    GreenButtonLed = InitButtonLed(gpio, GreenButtonLedPinNumber);
-		    RedButtonLed = InitButtonLed(gpio, RedButtonLedPinNumber);
-
-		    WhiteButton = InitButtonSwitch(gpio, WhiteButtonPinNumber, LedColor.Blue);
-		    YellowButton = InitButtonSwitch(gpio, YellowButtonPinNumber, LedColor.Blue);
-		    GreenButton = InitButtonSwitch(gpio, GreenButtonPinNumber, LedColor.Green);
-		    RedButton = InitButtonSwitch(gpio, RedButtonPinNumber, LedColor.Red);
-
-		    BlueLed = InitLed(gpio, BlueLedPinNumber);
-		    GreenLed = InitLed(gpio, GreenLedPinNumber);
-		    RedLed = InitLed(gpio, RedLedPinNumber);
-	    }
-
-	    private GpioPin InitLed(GpioController gpio, int pinNumber)
-	    {
-		    var pin = gpio.OpenPin(pinNumber);
-			pin.SetDriveMode(GpioPinDriveMode.Output);
-		    pin.Write(GpioPinValue.Low);
-		    return pin;
-	    }
-
-	    private GpioPin InitButtonSwitch(GpioController gpio, int pinNumber, LedColor color)
-	    {
-		    var pin = gpio.OpenPin(pinNumber);
-			pin.SetDriveMode(pin.IsDriveModeSupported(GpioPinDriveMode.InputPullUp)
-					? GpioPinDriveMode.InputPullUp
-					: GpioPinDriveMode.Input);
-			pin.DebounceTimeout = TimeSpan.FromMilliseconds(50);
-		    pin.ValueChanged += (p, args) =>
-		    {
-			    if (args.Edge == GpioPinEdge.FallingEdge)
-			    {
-					ToggleLed(color);
-			    }
-		    };
-
-		    return pin;
-	    }
-
-	    private GpioPin InitButtonLed(GpioController gpio, int pinNumber)
-	    {
-		    var pin = gpio.OpenPin(pinNumber);
-			pin.SetDriveMode(GpioPinDriveMode.Output);
-			pin.Write(GpioPinValue.High);
-		    return pin;
-	    }
-
-	    private void ToggleLed(LedColor color)
-	    {
-		    switch (color)
-		    {
-				case LedColor.Blue:
-					BlueLed.Write(BlueLedIsOn ? GpioPinValue.Low : GpioPinValue.High);
-					BlueLedIsOn = !BlueLedIsOn;
-					break;
-				case LedColor.Green:
-					GreenLed.Write(GreenLedIsOn ? GpioPinValue.Low : GpioPinValue.High);
-					GreenLedIsOn = !GreenLedIsOn;
-
-					GreenButtonLed.Write(GreenButtonLedIsOn ? GpioPinValue.Low : GpioPinValue.High);
-					GreenButtonLedIsOn = !GreenButtonLedIsOn;
-					break;
-				case LedColor.Red:
-					RedLed.Write(RedLedIsOn ? GpioPinValue.Low : GpioPinValue.High);
-					RedLedIsOn = !RedLedIsOn;
-
-					RedButtonLed.Write(RedButtonLedIsOn ? GpioPinValue.Low : GpioPinValue.High);
-					RedButtonLedIsOn = !RedButtonLedIsOn;
-					break;
-		    }
-	    }
-
-		private const int WhiteButtonPinNumber = 18;
-		private const int YellowButtonPinNumber = 24;
-		private const int GreenButtonPinNumber = 12;
-	    private const int RedButtonPinNumber = 20;
-
-	    public static GpioPin WhiteButton { get; set; }
-	    public static GpioPin YellowButton { get; set; }
-	    public static GpioPin GreenButton { get; set; }
-	    public static GpioPin RedButton { get; set; }
-
-	    public static bool WhiteButtonLedIsOn { get; set; } = true;
-	    public static bool YellowButtonLedIsOn { get; set; } = true;
-		public static bool GreenButtonLedIsOn { get; set; } = true;
-		public static bool RedButtonLedIsOn { get; set; } = true;
-		public const int WhiteButtonLedPinNumber = 23;
-	    public const int YellowButtonLedPinNumber = 25;
-	    public const int GreenButtonLedPinNumber = 16;
-	    public const int RedButtonLedPinNumber = 21;
-	    public GpioPin WhiteButtonLed { get; set; }
-	    public GpioPin YellowButtonLed { get; set; }
-	    public GpioPin GreenButtonLed { get; set; }
-	    public GpioPin RedButtonLed { get; set; }
-
-	    public static bool BlueLedIsOn { get; set; }
-	    public static bool GreenLedIsOn { get; set; }
-	    public static bool RedLedIsOn { get; set; }
-	    private const int BlueLedPinNumber = 4;
-	    private const int GreenLedPinNumber = 17;
-	    private const int RedLedPinNumber = 22;
-	    public static GpioPin BlueLed { get; set; }
-	    public static GpioPin GreenLed { get; set; }
-	    public static GpioPin RedLed { get; set; }
-
-	}
-
-	public enum LedColor
-	{
-		Blue,
-		Green,
-		Red
 	}
 }

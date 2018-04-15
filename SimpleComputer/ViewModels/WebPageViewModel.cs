@@ -2,6 +2,7 @@
 using Prism.Windows.Navigation;
 using System;
 using System.Windows.Input;
+using SimpleComputer.Gpio;
 
 namespace SimpleComputer.ViewModels
 {
@@ -31,7 +32,22 @@ namespace SimpleComputer.ViewModels
 			CalendarCommand = new DelegateCommand(ShowCalendar);
 			GoBackCommand = new DelegateCommand(GoBack);
 			NavigationService = navigationService;
+
+			//SetupGpio();
+
+			if (App.LastVisitedWebsite != null)
+			{
+				GotoPage(App.LastVisitedWebsite);
+			}
 		}
+
+	    public override void SetupGpio()
+	    {		   
+		    GpioManager.WhiteButton.TurnLedOn();
+			GpioManager.YellowButton.TurnLedOff();
+			GpioManager.GreenButton.TurnLedOff();
+			GpioManager.RedButton.TurnLedOff();
+	    }
 
 	    private void ShowCalendar()
 	    {
@@ -63,6 +79,7 @@ namespace SimpleComputer.ViewModels
 		{
 			SearchAction?.Invoke(uri);
 			ShowWeb = true;
+			App.LastVisitedWebsite = uri;
 		}
 
 		private void ShowSearch()
