@@ -51,6 +51,7 @@ namespace SimpleComputer.ViewModels
 			GpioManager.YellowButton.TurnLedOn();
 			GpioManager.GreenButton.TurnLedOff();
 			GpioManager.RedButton.TurnLedOff();
+			RefreshList();
 		}
 
 		private async void ScanForPosts()

@@ -23,14 +23,20 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
-		<StackPanel Grid.Row="0" Orientation="Horizontal">
-			<Button Content="Search" Command="{Binding ShowSearchCommand}"/>
-			<Button Content="Craig's List" Command="{Binding Item1Command}"/>
-			<Button Content="Show Feed" Command="{Binding FeedCommand}"/>
+		<Grid Grid.Row="0" Background="LightGray">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<Button Grid.Column="0" Content="Search" Command="{Binding ShowSearchCommand}"/>
+			<Button Grid.Column="1" Content="Craig's List" Command="{Binding Item1Command}"/>
+			<!--<Button Content="Show Feed" Command="{Binding FeedCommand}"/>
 			<Button Content="Create Post" Command="{Binding CreatePostCommand}"/>
-			<Button Content="Calendar" Command="{Binding CalendarCommand}"/>
-			<Button Content="Go Back" Command="{Binding GoBackCommand}"/>
-		</StackPanel>
+			<Button Content="Calendar" Command="{Binding CalendarCommand}"/>-->
+			<Button Grid.Column="3" Content="Go Back" Command="{Binding GoBackCommand}"/>
+		</Grid>
 
 		<WebView x:Name="MainWebView" Grid.Row="1" Source="http://google.com" Visibility="{Binding ShowWeb, Converter={StaticResource BoolToVisConverter}}"/>
 

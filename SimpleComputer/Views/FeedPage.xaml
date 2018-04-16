@@ -8,7 +8,7 @@
     xmlns:converters="using:SimpleComputer.Converters"
 	xmlns:prism="using:Prism.Windows.Mvvm"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    mc:Ignorable="d" x:Name="Page">
+    mc:Ignorable="d" x:Name="Page" Background="#FFAA00">
 	<Page.Resources>
 		<converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
 		<Style TargetType="Button">
@@ -17,7 +17,7 @@
 	</Page.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="auto"/>
+			<ColumnDefinition Width="0"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 		<StackPanel Grid.Column="0">
@@ -39,8 +39,8 @@
 						<RowDefinition Height="*"/>
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
-					<TextBlock Grid.Row="0" Text="{Binding CurrentPost.Title}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-					<TextBlock Grid.Row="0" Text="{Binding CurrentPost.PostDate, Converter={StaticResource DateTimeToStringConverter}}" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,4,5,0"/>
+					<TextBlock Grid.Row="0" Text="{Binding CurrentPost.Title}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
+					<TextBlock Grid.Row="0" Text="{Binding CurrentPost.PostDate, Converter={StaticResource DateTimeToStringConverter}}" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,4,5,0" Foreground="White"/>
 					<Border Grid.Row="1" CornerRadius="10" Margin="10">
 						<Image Source="{Binding CurrentPost.ImageUrl}" />
 					</Border>
@@ -48,8 +48,8 @@
 				</Grid>
 			</Border>
 			<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-				<Button Content="&lt;-- Previous" FontSize="24" FontWeight="Bold" Command="{Binding PreviousCommand}" Width="250" Margin="0,10,20,10"/>
-				<Button Content="Next --&gt;" FontSize="24" FontWeight="Bold" Command="{Binding NextCommand}" Width="250"/>
+				<Button Content="Previous" FontSize="24" FontWeight="Bold" Command="{Binding PreviousCommand}" Width="250" Margin="0,10,60,10"/>
+				<Button Content="Next" FontSize="24" FontWeight="Bold" Command="{Binding NextCommand}" Width="250"/>
 			</StackPanel>
 		</Grid>
 	</Grid>

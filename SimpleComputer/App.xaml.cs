@@ -37,7 +37,7 @@ namespace SimpleComputer
     /// </summary>
     public sealed partial class App : PrismUnityApplication
     {
-		private static readonly StorageCredentials cred = new StorageCredentials("simplecomputer", "XWz6oYC8qIhG+bEln/bjBEVjI1HzmsianUEmlexgRccYatqn2jEcU/RmkU4POir8LxVqlBxgydn3uHb1GQFBCA==");
+		private static readonly StorageCredentials cred = new StorageCredentials("simplecomputer", "2hQB6wDKWpRqAQ6JNeuDuNRuHWpQuXIJkz1hwZJlsr+XToTJhhLJsUxppjohZgisrYztmecCur3THJASJUWqEQ==");
 		private static readonly string tableConnectionString = @"DefaultEndpointsProtocol=https;AccountName=simplecomputer;AccountKey=XWz6oYC8qIhG+bEln/bjBEVjI1HzmsianUEmlexgRccYatqn2jEcU/RmkU4POir8LxVqlBxgydn3uHb1GQFBCA==;TableEndpoint=https://simplecomputer.table.core.windows.net/;";
 		public static readonly CloudBlobContainer AzureContainer = new CloudBlobContainer(new Uri("http://simplecomputer.blob.core.windows.net/imagescontainer/"), cred);
 		public static CloudTableClient TableClient { get; set; }

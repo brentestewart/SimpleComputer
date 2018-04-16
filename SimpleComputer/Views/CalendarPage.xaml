@@ -31,7 +31,7 @@
 		<ItemsControl Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Appointments}">
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<TextBlock Text="{Binding Title}"/>
+					<TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
 		</ItemsControl>
